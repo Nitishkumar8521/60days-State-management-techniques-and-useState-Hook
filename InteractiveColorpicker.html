@@ -8,11 +8,15 @@
         #root{
             margin: auto;
             width: 50%;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            padding: 30px;
+            text-align: center;
         }
     </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+    </div>
   </body>
   <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
   <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
@@ -39,13 +43,17 @@
             }
         }
         return(
-            <div>
-                <input style={{width:'100%'}} type="text" placeholder="Enter HEX color" 
+            <div> 
+                <h3 style={{textDecoration:'underline', color:'blue'}}>Interactive Color Picker</h3>
+                <input style={{width:'80%', backgroundColor:'pink',
+                fontWeight:'800'}} type="text" placeholder="Enter HEX color" 
                 onChange={handleChange} value={color}/>
-                <div style={{height:'20px', width:'100%',
+
+                <h5>Respective color of entered HEX color</h5>
+                <div style={{height:'20px', width:'80%',
                     backgroundColor:isValid?color:'transparent',
                     border:'2px solid red', marginTop:'10px',
-                    borderRadius:'5px'}}>
+                    marginLeft:'10%',borderRadius:'5px'}}>
                     {isValid?'':'Please enter valid HEX color'}
                 </div>
             </div>
