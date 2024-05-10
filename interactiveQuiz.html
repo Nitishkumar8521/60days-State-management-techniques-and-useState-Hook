@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+    <style>
+        input{
+            margin: 5px;
+        }
+        button{
+            margin: 5px;
+        }
+        #root{
+            margin: auto;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            width: 50%;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your  code will go here
+    let Root = ReactDOM.createRoot(document.getElementById('root'));
+    const { useState } = React;
+
+
+function Quiz() {
+
+    const [count,setCount] =useState(0);
+    const [flag,setFlag] = useState(true);
+  // Questions and options setup
+  const questions = [
+    {
+      questionText: 'What is the capital of France?',
+      answerOptions: [
+        { answerText: 'Paris', isCorrect: true },
+        { answerText: 'London', isCorrect: false },
+        { answerText: 'Madrid', isCorrect: false },
+        { answerText: 'Berlin', isCorrect: false },
+      ],
+    },
+    {
+      questionText: 'Who is CEO of Tesla?',
+      answerOptions: [
+        { answerText: 'Jeff Bezos', isCorrect: false },
+        { answerText: 'Elon Musk', isCorrect: true },
+        { answerText: 'Bill Gates', isCorrect: false },
+        { answerText: 'Tony Stark', isCorrect: false },
+      ],
+    },
+    {
+      questionText: 'The iPhone was created by which company?',
+      answerOptions: [
+        { answerText: 'Apple', isCorrect: true },
+        { answerText: 'Intel', isCorrect: false },
+        { answerText: 'Amazon', isCorrect: false },
+        { answerText: 'Microsoft', isCorrect: false },
+      ],
+    },
+  ];
+
+  function handleClick(event,index){
+    let value=event.target.value;
+    let array=questions[index].answerOptions;
+    let newArray=array.filter((ele)=>ele.isCorrect===true);
+    if(newArray[0].answerText===value){
+        setCount(count+1);
+    }
+  }
+  
+  function toggle(event){
+    setFlag(!flag);
+  }
+
+  function reStart(){
+    setCount(0);
+    setFlag(!flag);
+  }
+  return(
+    <div><h3 style={{color:'blue',textDecoration:'underline',textAlign:'center'}}>Interactive Quiz Application</h3>
+    {flag?
+    <div>
+        <p style={{color:'red'}}>Note :- Please select each question at once.</p>
+        {questions.map((ele,index)=>(<div key={index}>
+           <h4>{index+1}{". "}{ele.questionText}</h4>
+   
+          {ele.answerOptions.map((element,ind)=>(<span key={ind}>
+          <input type='button' value={element.answerText} 
+          onClick={(event)=>handleClick(event,index)} />
+          </span>))}
+        </div>))}    
+        <button onClick={toggle} style={{backgroundColor:'green',borderRadius:'5px',color:'white'}}>Submit</button>
+    </div>:<div>Your final score is {count}<button onClick={reStart}>Restart</button></div>}
+</div>
+  )
+}
+Root.render(<Quiz/>)
+
+  </script>
+</html>
