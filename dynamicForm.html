@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+    <style>
+      #root{
+        margin: auto;
+        width: 70%;
+        border: 2px solid blue;
+      }
+      input{
+        margin: 10px;
+      }
+      button{
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your  code will go here
+    const { useState } = React;
+    let Root = ReactDOM.createRoot(document.getElementById('root'));
+
+    function App(){
+        const [hobby, setHobby] = useState(['']);
+        const [data, setData] = useState('ni');
+
+        function handleChange(event){
+            event.preventDefault();
+            let value = event.target.value;
+            setData(value);
+        }
+
+        
+
+        function addHobby(event){ 
+           event.preventDefault();
+           let newArray = [...hobby,data];
+           setHobby(newArray);
+        }
+
+        
+
+        function removeHobby(index,event){
+           event.preventDefault();
+           let newArray = hobby.filter((_,ind)=>ind!=index);
+           setHobby(newArray);
+        }
+
+        function handleSubmit(event){
+            event.preventDefault();
+            let newArray = [...hobby,data];
+            console.log(newArray);
+        }
+
+        return(
+            <div><h3 style={{textDecoration:'underline'}}>Dynamic Form inputs with React</h3>
+                <form action="" onSubmit={handleSubmit}>
+                    
+                    {hobby.map((ele,index)=>(
+                        <div key={index}>
+                            < input placeholder='Enter your hobby' onChange={handleChange}/>
+                           {index===0?'':<button type='button' 
+                           onClick={(event)=>removeHobby(index,event)}>
+                           Remove</button>}
+                         <br/>
+                        </div>))} 
+                    <br/>
+                    <button onClick={addHobby}>Add-Hobby</button>
+                    
+                    <button type='submit'>Submit</button>
+                   
+                   
+                </form>
+            </div>
+        )
+    }
+    Root.render(<App />)
+  </script>
+</html>
